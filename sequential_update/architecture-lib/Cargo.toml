@@ -1,5 +1,5 @@
 [package]
-name = "constantry"
+name = "architecture-lib"
 version = "0.1.0"
 edition = "2021"
 
@@ -12,5 +12,7 @@ log = "0.4.14"
 redis = { version = "0.21.5", features = ["tokio-comp"] }
 serde = "1.0.136"
 structopt = "0.3.26"
+strum = "0.23.0"
+strum_macros = "0.23.1"
 tokio = { version = "1.17.0", features = ["full"] }
 tokio-stream = "0.1.8"

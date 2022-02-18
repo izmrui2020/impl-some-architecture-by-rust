@@ -96,7 +96,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "constantly_update_each_struct"
+name = "constantly"
 version = "0.1.0"
 dependencies = [
  "anyhow",

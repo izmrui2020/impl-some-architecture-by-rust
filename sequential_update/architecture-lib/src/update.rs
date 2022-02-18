@@ -29,7 +29,12 @@ where
     }
 
     pub async fn update_manager(&mut self) -> Result<()> {
-        
+        self.instance.update().await?;
+        Ok(())
+    }
+
+    pub async fn specific_manager(&mut self) -> Result<()> {
+        self.instance.specific_function().await?;
         Ok(())
     }
 }
