@@ -1,0 +1,16 @@
+[package]
+name = "constantry"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.53"
+async-trait = "0.1.52"
+log = "0.4.14"
+redis = { version = "0.21.5", features = ["tokio-comp"] }
+serde = "1.0.136"
+structopt = "0.3.26"
+tokio = { version = "1.17.0", features = ["full"] }
+tokio-stream = "0.1.8"
