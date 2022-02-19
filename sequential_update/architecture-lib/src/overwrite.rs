@@ -1,12 +1,12 @@
 //
 use anyhow::Result;
 use strum::IntoEnumIterator;
+use tokio_stream::StreamExt;
 use std::{collections::HashMap, fmt::Debug};
 use crate::update::Instance;
+use super::enum_store::{OrderIndicator};
 
 use super::special::SpecialTask;
-
-use super::enum_store::{OrderIndicator};
 
 #[async_trait::async_trait]
 pub trait List {
@@ -34,7 +34,7 @@ pub struct OverwriteManager<L, O, S>
 impl<L, O, S> OverwriteManager<L, O, S>
 where
     L: Send + List + 'static + Debug + Default,
-    O: Send + Order + 'static + Debug + Default,
+    O: Fn() + Send + Order + 'static + Debug + Default + Clone,
     S: Send + Special + 'static + Debug + Default,
 {
     fn new() -> Self {
@@ -56,6 +56,19 @@ where
     S: Send + Special + 'static + Debug + Default,
 {
     async fn init(&mut self) -> Result<()> {
+
+        let mut stream = tokio_stream::iter(OrderIndicator::iter());
+
+        tokio::pin!(stream);
+
+        while let Some(v) = stream.next().await {
+            self.order_group.entry(v)
+                .or_insert_with(|| {
+                    v.default()
+                })
+                .sort();
+
+        }
 
         for (key, val) in self.order_group.iter_mut() {
             val.sort();
