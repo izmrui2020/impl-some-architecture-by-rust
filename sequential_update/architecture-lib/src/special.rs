@@ -8,6 +8,14 @@ pub struct SpecialTask {
     store: HashMap<String, String>,
 }
 
+impl SpecialTask {
+    pub fn new() -> Self {
+        Self {
+            store: HashMap::new(),
+        }
+    }
+}
+
 #[async_trait::async_trait]
 impl Special for SpecialTask {
     async fn hoge(&mut self) -> Result<()> {
@@ -15,7 +23,7 @@ impl Special for SpecialTask {
             "hogehoge".to_string(),
             "fugafuga".to_string(),
         );
-        
+
         Ok(())
     }
 }

@@ -16,6 +16,8 @@ impl Order for OrderA {
             "fugafuga".to_string(),
         );
 
+        println!("{:?}", self.store);
+
         Ok(())
     }
 
@@ -34,6 +36,8 @@ impl Order for OrderB {
             "fugafuga".to_string(),
         );
 
+        println!("{:?}", self.store);
+
         Ok(())
     }
 
@@ -51,6 +55,8 @@ impl Order for OrderC {
             "hogehoge".to_string(),
             "fugafuga".to_string(),
         );
+
+        println!("{:?}", self.store);
 
         Ok(())
     }
