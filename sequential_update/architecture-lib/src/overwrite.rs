@@ -4,7 +4,7 @@ use strum::IntoEnumIterator;
 use tokio_stream::StreamExt;
 use std::{collections::HashMap, fmt::Debug};
 use crate::update::Instance;
-use super::enum_store::{OrderIndicator};
+use super::enum_store::{OrderIndicator, OrderKind};
 
 use super::special::SpecialTask;
 
@@ -27,14 +27,14 @@ pub trait Special {
 pub struct OverwriteManager<L, O, S>
 {
     list_group: HashMap<String, L>,
-    order_group: HashMap<OrderIndicator, O>,
+    order_group: HashMap<OrderKind, O>,
     specific: Box<S>,
 }
 
 impl<L, O, S> OverwriteManager<L, O, S>
 where
     L: Send + List + 'static + Debug + Default,
-    O: Fn() + Send + Order + 'static + Debug + Default + Clone,
+    O: Send + Order + 'static + Debug + Default + Clone,
     S: Send + Special + 'static + Debug + Default,
 {
     fn new() -> Self {
@@ -57,14 +57,14 @@ where
 {
     async fn init(&mut self) -> Result<()> {
 
-        let mut stream = tokio_stream::iter(OrderIndicator::iter());
+        let mut stream = tokio_stream::iter(OrderKind::iter());
 
         tokio::pin!(stream);
 
         while let Some(v) = stream.next().await {
             self.order_group.entry(v)
                 .or_insert_with(|| {
-                    v.default()
+                    OrderIndicator::v.default()
                 })
                 .sort();
 
