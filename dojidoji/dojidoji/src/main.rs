@@ -173,8 +173,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         match rx.recv()? {
             Event::Input(event) => match event.code {
                 KeyCode::Char('q') => {
-                    disable_raw_mode()?;
+                    terminal.clear()?;
                     terminal.show_cursor()?;
+                    disable_raw_mode()?;
                     break;
                 }
                 KeyCode::Char('h') => active_menu_item = MenuItem::Home,
