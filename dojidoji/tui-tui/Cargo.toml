@@ -8,6 +8,8 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.55"
 chrono = "0.4.19"
+strum = { version = "0.24.0", features = ["derive"] }
+strum_macros = "0.24.0"
 termion = "1.5.6"
 tui = { version = "0.17.0", default-features = false, features = ['termion'] }
 
