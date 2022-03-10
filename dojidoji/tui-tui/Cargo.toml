@@ -11,5 +11,6 @@ chrono = "0.4.19"
 strum = { version = "0.24.0", features = ["derive"] }
 strum_macros = "0.24.0"
 termion = "1.5.6"
+tokio = { version = "1.17.0", features = ["full"] }
 tui = { version = "0.17.0", default-features = false, features = ['termion'] }
 

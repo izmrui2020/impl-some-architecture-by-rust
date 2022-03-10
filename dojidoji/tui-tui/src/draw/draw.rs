@@ -1,5 +1,6 @@
 //
 use anyhow::Result;
+use tokio::sync::mpsc::Receiver;
 use std::string::ToString;
 use termion::raw::IntoRawMode;
 use tui::Terminal;
@@ -11,6 +12,7 @@ use tui::layout::{Layout, Direction, Constraint, Alignment};
 use strum::IntoEnumIterator;
 use super::MenuItem;
 use super::HomeItem;
+use super::sub::SubCenter;
 
 use termion::raw::RawTerminal;
 use termion::screen::AlternateScreen;
@@ -38,7 +40,8 @@ impl Termondayo {
         }
     }
 
-    pub fn draw(&mut self) -> Result<()> {
+    pub async fn draw(&mut self) -> Result<()> {
+
         self.terminal.draw(|mut f| {
             let chunks = Layout::default()
                 .direction(Direction::Vertical)

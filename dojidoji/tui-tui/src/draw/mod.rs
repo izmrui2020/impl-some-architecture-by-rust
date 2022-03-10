@@ -1,5 +1,7 @@
 //
 pub mod draw;
+pub mod sub;
+
 use strum::ToString;
 use strum_macros::{self, EnumIter};
 
